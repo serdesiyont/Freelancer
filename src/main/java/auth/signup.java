@@ -19,16 +19,18 @@ public class signup {
 
     final String path = "src/main/java/auth/users.json";
 
-     private static class User{
+     static class User{
      String full_name;
      String email;
      String password;
+     String account_type;
 
     // Method to set user details
-    public void createUser(String full_name, String email, String password) {
+    public void createUser(String full_name, String email, String password, String account_type) {
         this.full_name = full_name;
         this.email = email;
         this.password = password;
+        this.account_type = account_type;
     }
 
 
@@ -46,8 +48,17 @@ public class signup {
         System.out.print("Enter your Password: ");
         String password = input.nextLine();
 
+        System.out.print("Choose account type: \n 1, Client or 2, Freelancer: ");
+        String account_type = "";
+        int type = input.nextInt();
+        input.nextLine();
+        if (type == 1){
+            account_type += "Client";
+        } else if (type == 2) {
+            account_type += "Freelancer";
+        }
+
         User user = new User();
-        user.createUser(full_name, email, password);
 
         File check = new File(path);
         List<User> usersList = new ArrayList<>();
@@ -57,12 +68,21 @@ public class signup {
                 Type usersListType = new TypeToken<List<User>>() {}.getType();
                 usersList = gson.fromJson(reader, usersListType);
 
+                for(User user1 : usersList){
+                    while (user1.email.equals(email)){
+                        System.out.println("Email taken enter a new one: ");
+                        email = input.nextLine();
+                    }
+                }
+                user.createUser(full_name, email, password, account_type);
+
                 usersList.add(user);
 
 
 
             }
             else{
+                user.createUser(full_name, email, password, account_type);
 
 
                 usersList.add(user);

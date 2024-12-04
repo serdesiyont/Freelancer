@@ -1,12 +1,26 @@
 [
   {
-    "full_name": "dgh",
-    "email": "dgh",
-    "password": "dgh"
+    "full_name": ";dj",
+    "email": "\u0027f",
+    "password": "d\u0027j",
+    "account_type": "Client"
   },
   {
-    "full_name": "dghj",
-    "email": "dfh",
-    "password": "dfh"
+    "full_name": "ser",
+    "email": "ser",
+    "password": "sg",
+    "account_type": "Client"
+  },
+  {
+    "full_name": "serde",
+    "email": "ser",
+    "password": "sf",
+    "account_type": "Freelancer"
+  },
+  {
+    "full_name": "ser",
+    "email": "sdf",
+    "password": "gv\u0027",
+    "account_type": "Client"
   }
 ]
