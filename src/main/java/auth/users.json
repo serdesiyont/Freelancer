@@ -22,5 +22,11 @@
     "email": "sdf",
     "password": "gv\u0027",
     "account_type": "Client"
+  },
+  {
+    "full_name": "nahom tamirat",
+    "email": "nahomt@gmail.com",
+    "password": "243313",
+    "account_type": "Freelancer"
   }
 ]

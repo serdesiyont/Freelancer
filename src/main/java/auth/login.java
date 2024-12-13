@@ -2,11 +2,13 @@ package auth;
 import auth.signup.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import main.Freelancer_side;
 
 
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.io.IOException;
 
@@ -29,12 +31,15 @@ public class login {
             for(User user1: userList){
                 if(user1.email.equals(email) && user1.password.equals(pass)){
                     System.out.println("Welcome "+ user1.full_name);
+                    if(Objects.equals(user1.account_type, "Freelancer")){
+                        Freelancer_side.main(new String[0]);
+                    }
                 }
             }
 
         }
         catch(IOException e){
-            System.err.println(e.getMessage());
+            System.err.println("An error has occured" + e.getMessage());
         }
 
     }
