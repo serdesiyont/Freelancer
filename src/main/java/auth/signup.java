@@ -3,6 +3,7 @@ package auth;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import main.Main;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -19,19 +20,19 @@ public class signup {
 
     final String path = "src/main/java/auth/users.json";
 
-     static class User{
-     String full_name;
-     String email;
-     String password;
-     String account_type;
+    static class User{
+        String full_name;
+        String email;
+        String password;
+        String account_type;
 
-    // Method to set user details
-    public void createUser(String full_name, String email, String password, String account_type) {
-        this.full_name = full_name;
-        this.email = email;
-        this.password = password;
-        this.account_type = account_type;
-    }
+        // Method to set user details
+        public void createUser(String full_name, String email, String password, String account_type) {
+            this.full_name = full_name;
+            this.email = email;
+            this.password = password;
+            this.account_type = account_type;
+        }
 
 
     }
@@ -86,6 +87,10 @@ public class signup {
 
 
                 usersList.add(user);
+
+                Main mainClass = new Main();
+                mainClass.setEmail(email);
+                mainClass.setFullName(full_name);
 
             }
         }
