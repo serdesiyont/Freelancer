@@ -61,7 +61,7 @@ public class Freelancer_side {
                 System.out.println("Type: " + job.getType());
                 System.out.println("Salary: " + job.getSalary());
                 System.out.println("Description: " + job.getDescription());
-                System.out.println("Requirements: " + String.valueOf(job.getRequirements()));
+                System.out.println("Requirements: " + job.getRequirements());
             } else {
                 System.out.println("Choose have chosen an invalid job, Please try again :(.");
             }

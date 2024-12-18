@@ -93,6 +93,7 @@ public class signup {
                 mainClass.setFullName(full_name);
 
             }
+            reader.close();
         }
         catch (IOException e){
             System.err.println(e.getMessage());
@@ -105,6 +106,7 @@ public class signup {
             gson.toJson(usersList, writer);
 
             System.out.println("User Saved successfully");
+            writer.close();
         } catch (IOException e) {
             System.err.println("Error writing user data to file: " + e.getMessage());
         }

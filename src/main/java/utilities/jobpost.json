@@ -1,28 +1,39 @@
 [
-    {
-      "id": 1,
-      "title": "Software Engineer",
-      "company": "Tech Innovators Inc.",
-      "type": "Full-Time",
-      "salary": "80,000 - 120,000 USD",
-      "description": "Develop and maintain web applications using modern frameworks.",
-      "requirements": [
-        "Bachelor's degree in Computer Science or related field",
-        "2+ years of experience in software development",
-        "Proficiency in JavaScript, HTML, CSS"
-      ]
-    },
-    {
-      "id": 2,
-      "title": "Electrical Engineer",
-      "company": "Green Energy Solutions",
-      "type": "Part-Time",
-      "salary": "40,000 - 60,000 USD",
-      "description": "Work on sustainable energy projects and system designs.",
-      "requirements": [
-        "Bachelor's degree in Electrical Engineering",
-        "Experience with renewable energy systems",
-        "Strong analytical skills"
-      ]
-    }
-  ]
+  {
+    "id": 1,
+    "title": "Software Engineer",
+    "company": "Tech Innovators Inc.",
+    "type": "Full-Time",
+    "salary": "80,000 - 120,000 USD",
+    "description": "Develop and maintain web applications using modern frameworks.",
+    "requirements": [
+      "Bachelor\u0027s degree in Computer Science or related field",
+      "2+ years of experience in software development",
+      "Proficiency in JavaScript, HTML, CSS"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Electrical Engineer",
+    "company": "Green Energy Solutions",
+    "type": "Part-Time",
+    "salary": "40,000 - 60,000 USD",
+    "description": "Work on sustainable energy projects and system designs.",
+    "requirements": [
+      "Bachelor\u0027s degree in Electrical Engineering",
+      "Experience with renewable energy systems",
+      "Strong analytical skills"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Software Engineer",
+    "company": "Ahavah Tech",
+    "type": "",
+    "salary": "60000-100000",
+    "description": "nice",
+    "requirements": [
+
+    ]
+  }
+]

@@ -2,14 +2,14 @@ package utilities;
 
 import java.util.List;
 
-public class JobPosting {
-    private int id;
-    private String title;
-    private String company;
-    private String type;
-    private String salary;
-    private String description;
-    private List<String> requirements;
+public class JobPosting  {
+    private final int id;
+    private final String title;
+    private final String company;
+    private final String type;
+    private final String salary;
+    private final String description;
+    private final List<String> requirements;
 
 
     public JobPosting(int id, String title, String company, String type, String salary, String description, List<String> requirements) {
