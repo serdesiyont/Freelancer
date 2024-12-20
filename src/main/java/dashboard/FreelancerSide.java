@@ -1,4 +1,4 @@
-package main;
+package dashboard;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-public class Freelancer_side {
+public class FreelancerSide {
     String path = "src/main/java/utilities/jobpost.json";
     String pathBid = "src/main/java/utilities/bids.json";
     Scanner input = new Scanner(System.in);
@@ -66,7 +66,7 @@ public class Freelancer_side {
                 System.out.println("Type: " + job.getType());
                 System.out.println("Salary: " + job.getSalary());
                 System.out.println("Description: " + job.getDescription());
-                System.out.println("Requirements: " + String.valueOf(job.getRequirements()));
+                System.out.println("Requirements: " + job.getRequirements());
             } else {
                 System.out.println("Choose have chosen an invalid job, Please try again :(.");
             }
@@ -123,8 +123,8 @@ public class Freelancer_side {
         }
     }
 
-    public static void main(String[] args) {
-        Freelancer_side freelancer = new Freelancer_side();
+    public static void freelancer(String[] args) {
+        FreelancerSide freelancer = new FreelancerSide();
 
         System.out.println("Welcome to your dashboard :).");
         Scanner input = new Scanner(System.in);

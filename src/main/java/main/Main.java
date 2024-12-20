@@ -1,23 +1,31 @@
 package main;
-import auth.signup;
-import auth.login;
+import auth.SignUp;
+import auth.Login;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import dashboard.FreelancerSide;
+
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 public class Main {
 
-    private static String email;
+    private String fullName;
+    private String email;
 
-    public static void setEmail(String email) {
-        Main.email = email;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public static String getEmail() {
-        return email;
+    public  String getFullName() {
+        return this.fullName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return this.email;
     }
 
     public static void main(String[] args){
@@ -29,19 +37,21 @@ public class Main {
         int response = input.nextInt();
 
         if (response == 1) {
-            signup test = new signup();
+            SignUp test = new SignUp();
             test.register();
             System.out.println("Access your dashboard? Press 1 to continue");
             int confirmation = input.nextInt();
             if (confirmation == 1) {
-                Freelancer_side.main(new String[0]);
+                FreelancerSide.freelancer(new String[0]);
             }
         } else if (response == 2) {
-            login test = new login();
+            Login test = new Login();
             test.loginUser();
         } else {
             System.out.println("You have chose an invalid option, Please Try again :).");
         }
+
+
 
     }
 }

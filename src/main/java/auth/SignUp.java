@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 import java.util.Scanner;
 
 
-public class signup {
+public class SignUp {
 
     private static final Scanner input = new Scanner(System.in);
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -88,6 +88,7 @@ public class signup {
                 mainClass.setEmail(email);
 
             }
+            reader.close();
         }
         catch (IOException e){
             System.err.println(e.getMessage());
@@ -99,6 +100,7 @@ public class signup {
             gson.toJson(usersList, writer);
 
             System.out.println("User Saved successfully");
+            writer.close();
         } catch (IOException e) {
             System.err.println("Error writing user data to file: " + e.getMessage());
         }

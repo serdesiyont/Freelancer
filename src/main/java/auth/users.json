@@ -28,5 +28,11 @@
     "email": "nahomt@gmail.com",
     "password": "243313",
     "account_type": "Freelancer"
+  },
+  {
+    "full_name": "ser",
+    "email": "def",
+    "password": "ede",
+    "account_type": "Client"
   }
 ]
