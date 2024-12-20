@@ -10,23 +10,14 @@ import java.util.Scanner;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
-    private String fullName;
-    private String email;
+    private static String email;
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public static void setEmail(String email) {
+        Main.email = email;
     }
 
-    public String getFullName() {
-        return this.fullName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return this.email;
+    public static String getEmail() {
+        return email;
     }
 
     public static void main(String[] args){

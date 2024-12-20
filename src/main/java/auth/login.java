@@ -3,6 +3,7 @@ import auth.signup.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import main.Freelancer_side;
+import main.Main;
 
 
 import java.io.FileReader;
@@ -32,6 +33,9 @@ public class login {
                 if(user1.email.equals(email) && user1.password.equals(pass)){
                     System.out.println("Welcome "+ user1.full_name);
                     if(Objects.equals(user1.account_type, "Freelancer")){
+                        Main mainClass = new Main();
+                        mainClass.setEmail(email);
+
                         Freelancer_side.main(new String[0]);
                     }
                 }

@@ -79,25 +79,19 @@ public class signup {
 
                 usersList.add(user);
 
-
-
             }
             else{
                 user.createUser(full_name, email, password, account_type);
-
-
                 usersList.add(user);
 
                 Main mainClass = new Main();
                 mainClass.setEmail(email);
-                mainClass.setFullName(full_name);
 
             }
         }
         catch (IOException e){
             System.err.println(e.getMessage());
         }
-
 
 
         try (FileWriter writer = new FileWriter(path) ){

@@ -5,15 +5,20 @@ import com.google.gson.reflect.TypeToken;
 import utilities.BidSubmission;
 import utilities.JobPosting;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
 public class Freelancer_side {
     String path = "src/main/java/utilities/jobpost.json";
+    String pathBid = "src/main/java/utilities/bids.json";
     Scanner input = new Scanner(System.in);
 
 
@@ -75,24 +80,47 @@ public class Freelancer_side {
     public void submitBid() {
         Scanner response = new Scanner(System.in);
 
+        Main mainClass = new Main();
+        String email = mainClass.getEmail();
+        LocalDate date = LocalDate.now();
+
         System.out.println("To submit your proposal answer the following questions: ");
-        System.out.print("Description about your past experience that can be relatable to the current job application: ");
-        String experience = response.next();
+        System.out.println("Description about your past experience that can be relatable to the current job application: ");
+        String experience = response.nextLine();
         System.out.print("Enter the price to complete the project: ");
         int price = response.nextInt();
+        System.out.println(email);
 
-        try {
-            Gson gson = new Gson();
-            String json = new String(Files.readAllBytes(Paths.get(path)));
+        BidSubmission bid = new BidSubmission(email, experience, date, price);
+        saveBidToJson(bid);
+    }
 
-            Type listType = new TypeToken<List<BidSubmission>>() {}.getType();
-            List<JobPosting> jobList = gson.fromJson(json, listType);
+    public void saveBidToJson(BidSubmission bid) {
+        Gson gson = new Gson();
 
-        } catch (Exception e) {
-            System.out.println("Error reading the JSON file: " + e.getMessage());
+        List<BidSubmission> bids = readBidsFromFile();
+        bids.add(bid);
+
+        try (FileWriter writer = new FileWriter(pathBid)) {
+            gson.toJson(bids, writer);
+            System.out.println("Bid has been successfully submitted.");
+        } catch (IOException e) {
+            System.out.println("Error writing to the JSON file: " + e.getMessage());
         }
+    }
 
+    private List<BidSubmission> readBidsFromFile() {
+        Gson gson = new Gson();
+        try (FileReader reader = new FileReader(pathBid)) {
+            Type listType = new TypeToken<List<BidSubmission>>() {}.getType(); // Type for List<BidSubmission>
+            List<BidSubmission> bids = gson.fromJson(reader, listType);  // Deserialize the list of bids
 
+            // If the file is empty or the list is null, return an empty list
+            return bids != null ? bids : new java.util.ArrayList<>();
+        } catch (IOException e) {
+            System.out.println("Error reading from the JSON file: " + e.getMessage());
+            return new java.util.ArrayList<>();  // Return an empty list if the file doesn't exist or an error occurs
+        }
     }
 
     public static void main(String[] args) {
@@ -109,12 +137,12 @@ public class Freelancer_side {
         if (response == 1){
             freelancer.jobList();
             freelancer.getJob();
-//
+
             Scanner confirmation = new Scanner(System.in);
             System.out.print("To submit a bid, Type submit: ");
             String submit = confirmation.next();
 
-            if (submit.toLowerCase() == "submit") {
+            if (submit.equalsIgnoreCase("submit")) {
                 freelancer.submitBid();
             }
         }
