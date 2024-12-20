@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 import java.util.Scanner;
 
 
-public class signup {
+public class SignUp {
 
     private static final Scanner input = new Scanner(System.in);
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();

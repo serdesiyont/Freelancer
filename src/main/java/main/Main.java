@@ -1,11 +1,9 @@
 package main;
-import auth.signup;
-import auth.login;
+import auth.SignUp;
+import auth.Login;
 
-import dashboard.client;
+import dashboard.FreelancerSide;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -18,7 +16,7 @@ public class Main {
         this.fullName = fullName;
     }
 
-    public String getFullName() {
+    public  String getFullName() {
         return this.fullName;
     }
 
@@ -31,31 +29,29 @@ public class Main {
     }
 
     public static void main(String[] args){
-//        Scanner input = new Scanner(System.in);
-//        System.out.println("Create User or Login: ");
-//        System.out.println("1. Sign Up");
-//        System.out.println("2. Login");
-//
-//        int response = input.nextInt();
-//
-//        if (response == 1) {
-//            signup test = new signup();
-//            test.register();
-//            System.out.println("Access your dashboard? Press 1 to continue");
-//            int confirmation = input.nextInt();
-//            if (confirmation == 1) {
-//                Freelancer_side.main(new String[0]);
-//            }
-//        } else if (response == 2) {
-//            login test = new login();
-//            test.loginUser();
-//        } else {
-//            System.out.println("You have chose an invalid option, Please Try again :).");
-//        }
+        Scanner input = new Scanner(System.in);
+        System.out.println("Create User or Login: ");
+        System.out.println("1. Sign Up");
+        System.out.println("2. Login");
 
-   client test = new client();
+        int response = input.nextInt();
 
-   test.addJob();
+        if (response == 1) {
+            SignUp test = new SignUp();
+            test.register();
+            System.out.println("Access your dashboard? Press 1 to continue");
+            int confirmation = input.nextInt();
+            if (confirmation == 1) {
+                FreelancerSide.freelancer(new String[0]);
+            }
+        } else if (response == 2) {
+            Login test = new Login();
+            test.loginUser();
+        } else {
+            System.out.println("You have chose an invalid option, Please Try again :).");
+        }
+
+
 
     }
 }

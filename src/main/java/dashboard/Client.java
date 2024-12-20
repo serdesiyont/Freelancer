@@ -1,8 +1,5 @@
 package dashboard;
 
-
-import auth.signup;
-import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -18,15 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class client {
+import static auth.Login.Email;
+
+public class Client {
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    String path = "src/main/java/utilities/jobpost.json";
+    static String path = "src/main/java/utilities/jobpost.json";
 
-    Scanner input = new Scanner(System.in);
+    static Scanner input = new Scanner(System.in);
 
 
 
-    public void addJob(){
+    public static void addJob(){
         List<String> requirements = new ArrayList<>();
         int id;
 
@@ -45,18 +44,19 @@ public class client {
         System.out.print("Enter requirements: ");
         requirements.add(input.nextLine());
 
-        File check = new File(path);
+
 
         List<JobPosting> jobsList = new ArrayList<>();
 
         try (FileReader reader = new FileReader(path)){
+            File check = new File(path);
             if (check.length() != 0){
                 Type jobsListType = new TypeToken<List<JobPosting>>() {}.getType();
                jobsList = gson.fromJson(reader, jobsListType);
                 id = jobsList.getLast().getId() + 1;
 
 
-                JobPosting newJob = new JobPosting(id, title, company,type, salary, description, requirements);
+                JobPosting newJob = new JobPosting(id, title, company,type, salary, description,Email, requirements);
                 jobsList.add(newJob);
 
 
@@ -65,7 +65,7 @@ public class client {
 
                id = 1;
 
-               JobPosting firstJob = new JobPosting(id, title, company,type, salary, description, requirements);
+               JobPosting firstJob = new JobPosting(id, title, company,type, salary, description,Email, requirements);
                 jobsList.add(firstJob);
 
 
@@ -85,6 +85,28 @@ public class client {
             writer.close();
         }
         catch(IOException e){
+            System.err.println(e.getMessage());
+        }
+
+    }
+    public static void managePublishedJobs(){
+
+        try(FileReader reader = new FileReader(path)){
+        Type jobsListType = new TypeToken<List<JobPosting>>() {}.getType();
+        List<JobPosting> publishedJobs = gson.fromJson(reader, jobsListType);
+
+        for(JobPosting Jobs: publishedJobs){
+            if(Jobs.getPosted_by().equals(Email)){
+                System.out.println(Jobs.getId()+" "+ Jobs.getTitle());
+            }
+            System.out.println("Enter id of the job");
+            int id = input.nextInt();
+            
+        }
+
+        reader.close();
+        }
+        catch (IOException e){
             System.err.println(e.getMessage());
         }
 

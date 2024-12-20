@@ -1,4 +1,4 @@
-package main;
+package dashboard;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
-public class Freelancer_side {
+public class FreelancerSide {
     String path = "src/main/java/utilities/jobpost.json";
     Scanner input = new Scanner(System.in);
 
@@ -95,8 +95,8 @@ public class Freelancer_side {
 
     }
 
-    public static void main(String[] args) {
-        Freelancer_side freelancer = new Freelancer_side();
+    public static void freelancer(String[] args) {
+        FreelancerSide freelancer = new FreelancerSide();
 
         System.out.println("Welcome to your dashboard :).");
         Scanner input = new Scanner(System.in);
