@@ -8,12 +8,16 @@ public class BidSubmission {
     private String experience;
     private String date;
     private int price;
+    private String jobTitle;
+    private final String status;
 
-    public BidSubmission(String email, String experience, LocalDate date, int price) {
+    public BidSubmission(String email, String experience, LocalDate date, int price, String status, String jobTitle) {
         this.email = email;
         this.experience = experience;
-        this.date =  date.toString();
+        this.date = date.toString();
         this.price = price;
+        this.status = status;
+        this.jobTitle = jobTitle;
     }
 
 
@@ -25,11 +29,19 @@ public class BidSubmission {
         return experience;
     }
 
-    public void getDate() {
-        this.date = date.toString();
+    public String getDate() {
+        return date;
     }
 
     public int getPrice() {
         return price;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
     }
 }
