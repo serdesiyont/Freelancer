@@ -1,31 +1,47 @@
 package utilities;
 
+
+import java.time.LocalDate;
+
 public class BidSubmission {
-    private String fullName;
     private String email;
-    private String proposal;
+    private String experience;
     private String date;
+    private int price;
+    private String jobTitle;
+    private final String status;
 
-    public BidSubmission(String fullName, String email, String proposal, String date) {
-        this.fullName = fullName;
+    public BidSubmission(String email, String experience, LocalDate date, int price, String status, String jobTitle) {
         this.email = email;
-        this.proposal = proposal;
-        this.date = date;
+        this.experience = experience;
+        this.date = date.toString();
+        this.price = price;
+        this.status = status;
+        this.jobTitle = jobTitle;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
 
     public String getEmail() {
         return email;
     }
 
-    public String getProposal() {
-        return proposal;
+    public String getExperience() {
+        return experience;
     }
 
     public String getDate() {
         return date;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
     }
 }

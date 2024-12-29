@@ -3,6 +3,7 @@ import auth.SignUp.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dashboard.*;
+import main.Main;
 
 
 import java.io.FileReader;
@@ -37,7 +38,10 @@ public class Login {
                 if(user1.email.equals(email) && user1.password.equals(pass)){
                     System.out.println("Welcome "+ user1.full_name);
                     if(Objects.equals(user1.account_type, "Freelancer")){
+                        Main main = Main.getInstance();
+                        main.setEmail(email);
                         FreelancerSide.freelancer(new String[0]);
+
                     }else{
                         Email = user1.email;
                         System.out.println("""

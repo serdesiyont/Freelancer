@@ -8,16 +8,14 @@ import java.util.Scanner;
 
 
 public class Main {
-
-    private String fullName;
+    private static Main instance;
     private String email;
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public  String getFullName() {
-        return this.fullName;
+    public static Main getInstance() {
+        if (instance == null) {
+            instance = new Main();
+        }
+        return instance;
     }
 
     public void setEmail(String email) {
