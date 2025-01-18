@@ -1,52 +1,14 @@
 [
   {
     "id": 1,
-    "title": "dg",
-    "company": "dskjh",
-    "type": "sdh",
-    "salary": "skdjh",
-    "description": "sdkj",
-    "posted_by": "ser",
+    "title": "Fullstack dev",
+    "company": "Ava Tech",
+    "type": "Remote Full-time",
+    "salary": "45000",
+    "description": "Flutter Developer",
+    "posted_by": "john@email.com",
     "requirements": [
-      "dsk"
-    ]
-  },
-  {
-    "id": 2,
-    "title": "dg",
-    "company": "dskjh",
-    "type": "sdh",
-    "salary": "skdjh",
-    "description": "sdkj",
-    "posted_by": "ser",
-    "requirements": [
-      "dsk"
-    ]
-  },
-  {
-    "id": 3,
-    "title": "dg",
-    "company": "dskjh",
-    "type": "sdh",
-    "salary": "skdjh",
-    "description": "sdkj",
-    "posted_by": "ser",
-    "requirements": [
-      "dsk"
-    ]
-  },
-  {
-    "id": 4,
-    "title": "Software Engineer",
-    "company": "TechCorp",
-    "type": "Full-Time",
-    "salary": "$120,000/year",
-    "description": "Responsible for developing and maintaining software solutions.",
-    "posted_by": "John Doe",
-    "requirements": [
-      "3+ years of experience in software development",
-      "Proficient in Python and JavaScript",
-      "Strong problem-solving skills"
+      "CS Degree, 5+ years experience"
     ]
   }
 ]

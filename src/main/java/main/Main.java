@@ -1,11 +1,10 @@
 package main;
+
 import auth.SignUp;
 import auth.Login;
-
 import dashboard.FreelancerSide;
 
 import java.util.Scanner;
-
 
 public class Main {
     private static Main instance;
@@ -26,30 +25,50 @@ public class Main {
         return this.email;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        System.out.println("Create User or Login: ");
-        System.out.println("1. Sign Up");
-        System.out.println("2. Login");
+        System.out.println("=== Welcome to the Freelance Management System ===");
 
-        int response = input.nextInt();
+        while (true) {
+            // Display the main menu
+            System.out.println("\nPlease choose an option:");
+            System.out.println("1. Sign Up (Create an account)");
+            System.out.println("2. Login");
+            System.out.println("3. Exit");
 
-        if (response == 1) {
-            SignUp test = new SignUp();
-            test.register();
-            System.out.println("Access your dashboard? Press 1 to continue");
-            int confirmation = input.nextInt();
-            if (confirmation == 1) {
-                FreelancerSide.freelancer(new String[0]);
+            System.out.print("👉 Enter your choice: ");
+            int response = input.nextInt();
+            input.nextLine(); // Consume the leftover newline character
+
+            switch (response) {
+                case 1:
+                    // Sign up
+                    SignUp signUp = new SignUp();
+                    signUp.register();
+                    System.out.print("\nWould you like to access your dashboard now? (Press 1 for Yes, any other key to exit): ");
+                    int confirmation = input.nextInt();
+                    input.nextLine(); // Consume newline
+                    if (confirmation == 1) {
+                        FreelancerSide.freelancer(new String[0]);
+                    }
+                    break;
+
+                case 2:
+                    // Login
+                    Login login = new Login();
+                    login.loginUser();
+                    break;
+
+                case 3:
+                    // Exit the application
+                    System.out.println("\nThank you for using our system. Goodbye!");
+                    input.close();
+                    System.exit(0);
+
+                default:
+                    // Handle invalid input
+                    System.out.println("❌ Invalid option. Please enter 1, 2, or 3.");
             }
-        } else if (response == 2) {
-            Login test = new Login();
-            test.loginUser();
-        } else {
-            System.out.println("You have chose an invalid option, Please Try again :).");
         }
-
-
-
     }
 }

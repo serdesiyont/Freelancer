@@ -4,23 +4,22 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import main.Main;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.lang.reflect.Type;
-
 import java.util.Scanner;
-
 
 public class SignUp {
 
     private static final Scanner input = new Scanner(System.in);
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+    private final String path = "src/main/java/auth/users.json";
 
-    final String path = "src/main/java/auth/users.json";
-
-    static class User{
+    static class User {
         String full_name;
         String email;
         String password;
@@ -33,77 +32,70 @@ public class SignUp {
             this.password = password;
             this.account_type = account_type;
         }
-
-
     }
-
 
     // Method to register a user
     public void register() {
+        System.out.println("\n=== User Registration ===");
+
+        // Input full name
         System.out.print("Enter Full Name: ");
         String full_name = input.nextLine();
 
+        // Input email
         System.out.print("Enter your Email: ");
         String email = input.nextLine();
 
+        // Input password
         System.out.print("Enter your Password: ");
-        String password = input.nextLine();
+        String rawPassword = input.nextLine();
+        String encryptedPassword = passwordEncryptor.encryptPassword(rawPassword);
 
-        System.out.print("Choose account type: \n 1, Client or 2, Freelancer: ");
-        String account_type = "";
-        int type = input.nextInt();
-        input.nextLine();
-        if (type == 1){
-            account_type += "Client";
-        } else if (type == 2) {
-            account_type += "Freelancer";
+        // Input account type with validation
+        System.out.print("Choose account type:\n 1: Client\n 2: Freelancer\n👉 Enter your choice: ");
+        int accountTypeChoice = input.nextInt();
+        input.nextLine(); // Consume the leftover newline character
+        while (accountTypeChoice != 1 && accountTypeChoice != 2) {
+            System.out.print("❌ Invalid choice. Please enter 1 for Client or 2 for Freelancer: ");
+            accountTypeChoice = input.nextInt();
+            input.nextLine();
         }
+        String account_type = (accountTypeChoice == 1) ? "Client" : "Freelancer";
 
-        User user = new User();
-
-        File check = new File(path);
+        // Create a new user
+        User newUser = new User();
         List<User> usersList = new ArrayList<>();
-        try(FileReader reader = new FileReader(path)){
-            if (check.length() != 0){
 
-                Type usersListType = new TypeToken<List<User>>() {}.getType();
-                usersList = gson.fromJson(reader, usersListType);
+        File file = new File(path);
+        if (file.exists() && file.length() != 0) {
+            // Read existing users from file
+            try (FileReader reader = new FileReader(path)) {
+                Type userListType = new TypeToken<List<User>>() {}.getType();
+                usersList = gson.fromJson(reader, userListType);
 
-                for(User user1 : usersList){
-                    while (user1.email.equals(email)){
-                        System.out.println("Email taken enter a new one: ");
+                // Check if the email is already taken
+                for (User user : usersList) {
+                    while (user.email.equals(email)) {
+                        System.out.print("❌ Email is already taken. Enter a new email: ");
                         email = input.nextLine();
                     }
                 }
-                user.createUser(full_name, email, password, account_type);
-
-                usersList.add(user);
-
+            } catch (IOException e) {
+                System.err.println("❌ Error reading user data: " + e.getMessage());
+                return;
             }
-            else{
-                user.createUser(full_name, email, password, account_type);
-                usersList.add(user);
-
-                Main mainClass = new Main();
-                mainClass.setEmail(email);
-
-            }
-            reader.close();
-        }
-        catch (IOException e){
-            System.err.println(e.getMessage());
         }
 
+        // Add new user to the list
+        newUser.createUser(full_name, email, encryptedPassword, account_type);
+        usersList.add(newUser);
 
-        try (FileWriter writer = new FileWriter(path) ){
-
+        // Save updated users list to file
+        try (FileWriter writer = new FileWriter(path)) {
             gson.toJson(usersList, writer);
-
-            System.out.println("User Saved successfully");
-            writer.close();
+            System.out.println("\n✅ User registered successfully!");
         } catch (IOException e) {
-            System.err.println("Error writing user data to file: " + e.getMessage());
+            System.err.println("❌ Error saving user data: " + e.getMessage());
         }
     }
-
 }

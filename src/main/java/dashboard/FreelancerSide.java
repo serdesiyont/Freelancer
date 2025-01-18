@@ -1,6 +1,7 @@
 package dashboard;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import main.Main;
 import utilities.BidSubmission;
@@ -14,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class FreelancerSide {
@@ -24,8 +26,8 @@ public class FreelancerSide {
 
     public void jobList() {
         try {
-            System.out.println("=== Here are the Job lists: ===");
-            Gson gson = new Gson();
+            System.out.println("💼 === Available Job Listings === 💼");
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String json = new String(Files.readAllBytes(Paths.get(path)));
 
             Type listType = new TypeToken<List<JobPosting>>() {}.getType();
@@ -33,24 +35,27 @@ public class FreelancerSide {
 
             int count = 1;
             for (JobPosting job : jobPostings) {
-                System.out.println(count + ". " + job.getTitle());
-                System.out.println("-------------" + job.getCompany());
-                System.out.println("-------------" + job.getSalary());
-                System.out.println("-------------" + job.getType());
+                System.out.printf("[%d] %s%n", count, job.getTitle());
+                System.out.println("   🔹 Company: " + job.getCompany());
+                System.out.println("   🔹 Salary: $" + job.getSalary());
+                System.out.println("   🔹 Type: " + job.getType());
+                System.out.println("-------------------------------------------------");
                 count++;
             }
-
         } catch (IOException e) {
-            System.out.println("Error reading the JSON file: " + e.getMessage());
+            System.out.println("⚠️ Error: Unable to load job listings. (" + e.getMessage() + ")");
         } catch (Exception e) {
-            System.out.println("Encountered an error: " + e.getMessage());
+            System.out.println("⚠️ Unexpected error: " + e.getMessage());
         }
     }
+    int id;
 
     public void getJob() {
-        System.out.println("#######################");
-        System.out.print("For more detail select the desired choice: ");
+        System.out.println("📋 ========================= 📋");
+        System.out.print("🔍 Enter the job number to view details: ");
         int index = input.nextInt();
+        id = index;
+
         try {
             Gson gson = new Gson();
             String json = new String(Files.readAllBytes(Paths.get(path)));
@@ -62,20 +67,19 @@ public class FreelancerSide {
                 JobPosting job = jobList.get(index - 1);
                 selectedJob = jobList.get(index - 1);
 
-                System.out.println("Title: " + job.getTitle());
-                System.out.println("Company: " + job.getCompany());
-                System.out.println("Type: " + job.getType());
-                System.out.println("Salary: " + job.getSalary());
-                System.out.println("Description: " + job.getDescription());
-                System.out.println("Requirements: " + job.getRequirements());
+                System.out.println("\n📌 Job Details:");
+                System.out.println("   🔹 Title: " + job.getTitle());
+                System.out.println("   🔹 Company: " + job.getCompany());
+                System.out.println("   🔹 Type: " + job.getType());
+                System.out.println("   🔹 Salary: $" + job.getSalary());
+                System.out.println("   🔹 Description: " + job.getDescription());
+                System.out.println("   🔹 Requirements: " + job.getRequirements());
             } else {
-                System.out.println("You have chosen an invalid job, Please try again :(.");
+                System.out.println("⚠️ Invalid selection. Please try again.");
             }
-
         } catch (Exception e) {
-            System.out.println("Error reading the JSON file: " + e.getMessage());
+            System.out.println("⚠️ Error: Unable to load job details. (" + e.getMessage() + ")");
         }
-
     }
 
     public void submitBid() {
@@ -85,14 +89,14 @@ public class FreelancerSide {
         String email = mainClass.getEmail();
         LocalDate date = LocalDate.now();
 
-        System.out.println("=== To submit your proposal answer the following questions: ===");
-        System.out.println("Description about your past experience that can be relatable to the current job application: ");
+        System.out.println("📝 === Submit Your Proposal === 📝");
+        System.out.print("🔹 Describe your relevant experience: ");
         String experience = response.nextLine();
-        System.out.print("Enter the price to complete the project: ");
+        System.out.print("🔹 Enter your proposed price: $");
         int price = response.nextInt();
 
         String getJobTitle = selectedJob.getTitle();
-        BidSubmission bid = new BidSubmission(email, experience, date, price, "Pending", getJobTitle);
+        BidSubmission bid = new BidSubmission(id, email, experience, date, price, "Pending", getJobTitle);
         saveBidToJson(bid);
     }
 
@@ -104,11 +108,10 @@ public class FreelancerSide {
 
         try (FileWriter writer = new FileWriter(pathBid)) {
             gson.toJson(bids, writer);
-            System.out.println("*******************************");
-            System.out.println("* Bid has been successfully submitted. *");
-            System.out.println("*******************************");
+            System.out.println("\n✅ Proposal Submitted Successfully!");
+            System.out.println("💬 Your bid is now under review.");
         } catch (IOException e) {
-            System.out.println("Error writing to the JSON file: " + e.getMessage());
+            System.out.println("⚠️ Error: Unable to submit the proposal. (" + e.getMessage() + ")");
         }
     }
 
@@ -116,12 +119,9 @@ public class FreelancerSide {
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(pathBid)) {
             Type listType = new TypeToken<List<BidSubmission>>() {}.getType();
-
-            List<BidSubmission> bids = gson.fromJson(reader, listType);
-
-            return bids != null ? bids : new java.util.ArrayList<>();
+            return gson.fromJson(reader, listType) != null ? gson.fromJson(reader, listType) : new java.util.ArrayList<>();
         } catch (IOException e) {
-            System.out.println("Error reading from the JSON file: " + e.getMessage());
+            System.out.println("⚠️ Error: Unable to load previous bids. (" + e.getMessage() + ")");
             return new java.util.ArrayList<>();
         }
     }
@@ -131,32 +131,34 @@ public class FreelancerSide {
         String email = mainClass.getEmail();
 
         List<BidSubmission> bids = readBidsFromFile();
-        System.out.println("#######################");
-        System.out.println("=== Your submitted bids: ===");
+        System.out.println("📤 === Your Submitted Bids === 📤");
         int count = 1;
         for (BidSubmission bid : bids) {
             if (bid.getEmail().equals(email)) {
-                System.out.println(count + ". Job Title: " + bid.getJobTitle());
-                System.out.println("   " + "Experience: " + bid.getExperience());
-                System.out.println("   " + "Date: " + bid.getDate());
-                System.out.println("   " + "Price: " + bid.getPrice());
-                System.out.println("   " + "Status: " + bid.getStatus());
-                System.out.println("-----------------------------");
+                System.out.printf("[%d] %s%n", count, bid.getJobTitle());
+                System.out.println("   🔹 Experience: " + bid.getExperience());
+                System.out.println("   🔹 Submitted On: " + bid.getDate());
+                System.out.println("   🔹 Proposed Price: $" + bid.getPrice());
+                System.out.println("   🔹 Status: " + bid.getStatus());
+                if (!Objects.equals(bid.getClientAddress(), "")) {
+                    System.out.println("   🔹 Client Address: " + bid.getClientAddress());
+                }
+                System.out.println("-------------------------------------------------");
                 count++;
             }
         }
     }
 
     public static void freelancer(String[] args) {
-        System.out.println("#######################");
+        System.out.println("🔷 ========================= 🔷");
         FreelancerSide freelancer = new FreelancerSide();
 
-        System.out.println("=== Welcome to your dashboard :) ===");
+        System.out.println("🎉 Welcome to Your Freelancer Dashboard!");
         Scanner input = new Scanner(System.in);
 
-        System.out.println("1. JobList");
-        System.out.println("2. Get submitted bids");
-        System.out.print("Choose where to redirect: ");
+        System.out.println("[1] View Job Listings");
+        System.out.println("[2] View Submitted Bids");
+        System.out.print("➡️ Select an option: ");
 
         int response = input.nextInt();
         if (response == 1) {
@@ -164,7 +166,7 @@ public class FreelancerSide {
             freelancer.getJob();
 
             Scanner confirmation = new Scanner(System.in);
-            System.out.print("To submit a bid, type 'submit': ");
+            System.out.print("\n➡️ To submit a bid, type 'submit': ");
             String submit = confirmation.next();
 
             if (submit.equalsIgnoreCase("submit")) {
@@ -173,13 +175,13 @@ public class FreelancerSide {
             }
         } else if (response == 2) {
             freelancer.getSubmittedBids();
-            System.out.print("Do you want to go back to the dashboard? (yes/no): ");
+            System.out.print("\n🔄 Return to dashboard? (yes/no): ");
             String goBack = input.next();
             if (goBack.equalsIgnoreCase("yes")) {
                 freelancer(args);
             }
         } else {
-            System.out.println("You have chosen an invalid option, please try again :(.");
+            System.out.println("⚠️ Invalid option. Please try again.");
         }
     }
 }
