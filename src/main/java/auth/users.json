@@ -10,5 +10,23 @@
     "email": "linus@gmail.com",
     "password": "EkorCNA4ZqdsBFEjc/cayhVRFcjLQBDQHjji1Jer6bs+hZ1JbVJkkd4/igOYya4U",
     "account_type": "Freelancer"
+  },
+  {
+    "full_name": "Bill Gates",
+    "email": "gates@microsoft.com",
+    "password": "FQqoKTIuTH7vBBGP7fLPk0eV00mMQqPp2fmZ24Nj30saFk9uvSHKvpzcXmTXWwcG",
+    "account_type": "Freelancer"
+  },
+  {
+    "full_name": "Mark Zuckerberg",
+    "email": "mark@meta.com",
+    "password": "9E7E8LXVNTAO8PVtw+xudArbWS4BVoIg8qKZY0K6yPhkbng3hpzH8b5uR54WALsC",
+    "account_type": "Freelancer"
+  },
+  {
+    "full_name": "Elon Musk",
+    "email": "musk@spacex.com",
+    "password": "0UoilG/MZiCuLO8UvHXle8BCvgcRLF20BnFSWP3E/LAit7dt5eaOgY/LLpP6NAOR",
+    "account_type": "Freelancer"
   }
 ]

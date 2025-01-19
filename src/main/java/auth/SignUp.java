@@ -18,8 +18,10 @@ public class SignUp {
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     private final StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
     private final String path = "src/main/java/auth/users.json";
+    private String account_type;
 
-    static class User {
+
+     class User {
         String full_name;
         String email;
         String password;
@@ -32,6 +34,10 @@ public class SignUp {
             this.password = password;
             this.account_type = account_type;
         }
+    }
+
+    public String getAccountType() {
+        return this.account_type;
     }
 
     // Method to register a user
@@ -60,7 +66,7 @@ public class SignUp {
             accountTypeChoice = input.nextInt();
             input.nextLine();
         }
-        String account_type = (accountTypeChoice == 1) ? "Client" : "Freelancer";
+        this.account_type = (accountTypeChoice == 1) ? "Client" : "Freelancer"; // Set the account_type field
 
         // Create a new user
         User newUser = new User();
@@ -87,7 +93,7 @@ public class SignUp {
         }
 
         // Add new user to the list
-        newUser.createUser(full_name, email, encryptedPassword, account_type);
+        newUser.createUser(full_name, email, encryptedPassword, this.account_type);
         usersList.add(newUser);
 
         // Save updated users list to file

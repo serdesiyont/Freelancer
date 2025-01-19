@@ -92,13 +92,26 @@ public class FreelancerSide {
         System.out.println("📝 === Submit Your Proposal === 📝");
         System.out.print("🔹 Describe your relevant experience: ");
         String experience = response.nextLine();
-        System.out.print("🔹 Enter your proposed price: $");
-        int price = response.nextInt();
+
+        int price = 0;
+        boolean validInput = false;
+        while (!validInput) {
+            System.out.print("🔹 Enter your proposed price: $");
+            if (response.hasNextInt()) {
+                price = response.nextInt();
+                validInput = true;
+            } else {
+                System.out.println("❌ Invalid input. Please enter a valid number.");
+                response.next(); // Clear the invalid input
+            }
+        }
 
         String getJobTitle = selectedJob.getTitle();
         BidSubmission bid = new BidSubmission(id, email, experience, date, price, "Pending", getJobTitle);
         saveBidToJson(bid);
     }
+
+
 
     public void saveBidToJson(BidSubmission bid) {
         Gson gson = new Gson();
@@ -119,7 +132,8 @@ public class FreelancerSide {
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(pathBid)) {
             Type listType = new TypeToken<List<BidSubmission>>() {}.getType();
-            return gson.fromJson(reader, listType) != null ? gson.fromJson(reader, listType) : new java.util.ArrayList<>();
+            List<BidSubmission> bids = gson.fromJson(reader, listType);
+            return bids != null ? bids : new java.util.ArrayList<>();
         } catch (IOException e) {
             System.out.println("⚠️ Error: Unable to load previous bids. (" + e.getMessage() + ")");
             return new java.util.ArrayList<>();

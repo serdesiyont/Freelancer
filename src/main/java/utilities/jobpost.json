@@ -10,5 +10,29 @@
     "requirements": [
       "CS Degree, 5+ years experience"
     ]
+  },
+  {
+    "id": 2,
+    "title": "Backend Dev",
+    "company": "Ava Tech",
+    "type": "Full-Time",
+    "salary": "100000",
+    "description": "Python, Django, Postgress Dev",
+    "posted_by": "john@email.com",
+    "requirements": [
+      "Degree(Optional), Experience in Python, Relational Dbs"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "ML Engineer",
+    "company": "Ava Tech",
+    "type": "Part-Time",
+    "salary": "70000",
+    "description": "Train and Fine Tune AI Models",
+    "posted_by": "john@email.com",
+    "requirements": [
+      "Master in SE, Experience in Tensorflow and related frameworks"
+    ]
   }
 ]
